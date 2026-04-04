@@ -1,4 +1,3 @@
-// _leaflet-template.typ
 // Trifold A4-landscape leaflet template for The Four Foxes RPG.
 //
 // PRINT INSTRUCTIONS
@@ -12,6 +11,8 @@
 //   ┌───────────────┬──────────────────────────┬───────────────┐
 //   │  BACK COVER   │  RULES: Snapping +       │  COVER        │
 //   │  agency blurb │  Playing Diceless        │  name + image │
+//   │               │                          │  + motto +    │
+//   │               │                          │  description  │
 //   └───────────────┴──────────────────────────┴───────────────┘
 //    ← back of      ← hidden (opens from back)   ← front face
 //      leaflet                                      when folded
@@ -19,28 +20,29 @@
 // Page 2 — inside faces (left → right when sheet is flat):
 //
 //   ┌───────────────────┬──────────────────────┬──────────────────────┐
-//   │  DESCRIPTION      │  CAN & CAN'T         │  RULES: System       │
-//   │  & MOTTO          │  (fear-tracking □)   │  fear + conditions   │
+//   │  HOW TO PLAY      │  PERSONAL            │  RULES: System       │
+//   │  + quick ref      │  PARTICULARS         │  damage + quirks     │
 //   └───────────────────┴──────────────────────┴──────────────────────┘
 //    ← inside left        ← inside centre         ← inside right
 
 #let leaflet(
   // ── Colour palette (override per character) ─────────────────────────────
-  accent:      rgb("#c8880a"),
-  dim:         rgb("#a89060"),
-  dark-accent: rgb("#8b5e05"),
-  footer-dim:  rgb("#5a4020"),
-  bg:          rgb("#1a1008"),
-  text-col:    rgb("#e8d5a3"),
-  motto-col:   rgb("#d4a84b"),
+  accent:      rgb("6a5637"),
+  dim:         rgb("6a6157"),
+  dark-accent: rgb("4f3c28"),
+  footer-dim:  rgb("70675d"),
+  bg:          white,
+  text-col:    rgb("241d19"),
+  motto-col:   rgb("2d231d"),
 
   // ── Character data ────────────────────────────────────────────────────────
   name:        "Character",
   nickname:    "Nickname",
   description: [Character description.],
   motto:       "Motto.",
-  can-items:   (),
-  cant-items:  (),
+  portrait:    none,
+  particulars-items: (),
+  play-notes:  (),
 
   // Required by #show: template.with(…)
   body,
@@ -57,39 +59,54 @@
   set text(
     font: "Linux Libertine",
     fill: text-col,
-    size: 9.5pt,
+    size: 9.15pt,
     lang: "en",
   )
-  set par(leading: 0.55em)
+  set par(
+    leading: 0.58em,
+    justify: true,
+  )
 
   // Panel dimensions: A4 landscape (210 mm tall) minus top+bottom margins (20 mm).
-  let panel-h  = 190mm
-  let col-gap  = 6mm
+  let panel-h = 190mm
+  let col-gap = 6mm
 
   // ── Primitive helpers ────────────────────────────────────────────────────
 
-  let hrule(color: accent) = line(length: 100%, stroke: 1.2pt + color)
-
-  let section-head(title) = {
-    v(0.5em)
-    hrule()
-    v(0.15em)
-    text(size: 7.5pt, fill: dim, tracking: 2.5pt)[#upper(title)]
-    v(0.2em)
+  let hrule(color: accent, length: 100%, weight: 0.65pt) = {
+    line(length: length, stroke: weight + color)
   }
 
-  // □ checkbox players cross off as fear mounts
-  let can-item(content) = pad(left: 0.5em, bottom: 0.2em)[
-    #text(fill: accent)[□] #h(0.2em) #content
+  let section-head(title) = {
+    v(0.58em)
+    align(center)[
+      #hrule(length: 100%, weight: 0.55pt)
+      #v(0.18em)
+      #text(font: "Linux Libertine Display", size: 7.7pt, fill: dark-accent, tracking: 2.45pt)[#upper(title)]
+      #v(0.12em)
+      #hrule(length: 34%, weight: 0.4pt)
+    ]
+    v(0.3em)
+  }
+
+  let particular-item(content) = pad(left: 0.45em, bottom: 0.24em)[
+    #text(fill: accent)[—] #h(0.35em) #content
   ]
-  let cant-item(content) = pad(left: 0.5em, bottom: 0.2em)[
-    #text(fill: accent)[□] #h(0.2em) #text(fill: rgb("#c07050"))[#content]
+  let rule-item(content) = pad(left: 0.45em, bottom: 0.2em)[
+    #text(fill: accent)[§] #h(0.28em) #content
   ]
-  let rule-item(content) = pad(left: 0.5em, bottom: 0.18em)[
-    #text(fill: dim)[›] #h(0.2em) #content
+  let play-item(content) = pad(left: 0.45em, bottom: 0.24em)[
+    #text(fill: accent)[—] #h(0.35em) #content
   ]
-  let fear-item(content) = pad(left: 0.5em, bottom: 0.15em)[
-    #text(fill: rgb("#993333"))[✦] #h(0.2em) #content
+
+  let motto-block(motto-text) = align(center)[
+    #hrule(length: 100%, weight: 0.55pt)
+    #v(0.42em)
+    #text(font: "Linux Libertine Display", size: 10.7pt, style: "italic", fill: motto-col)[“#motto-text”]
+    #v(0.28em)
+    #text(size: 6.15pt, fill: dim, tracking: 2.05pt)[— #upper(name)]
+    #v(0.42em)
+    #hrule(length: 100%, weight: 0.55pt)
   ]
 
   // Wraps panel content so the footer always sits at the bottom of the cell.
@@ -98,10 +115,10 @@
     rows: (1fr, auto),
     main-content,
     {
-      hrule(color: dark-accent)
-      v(0.2em)
+      hrule(color: accent, weight: 0.72pt)
+      v(0.22em)
       align(center)[
-        text(size: 6.5pt, fill: footer-dim, tracking: 1.5pt)[#footer-text]
+        #text(size: 6pt, fill: footer-dim, tracking: 1.8pt)[#upper(footer-text)]
       ]
     },
   )
@@ -112,30 +129,53 @@
   let panel-cover = panelled(
     {
       align(center)[
-        v(0.8em)
-        text(size: 6.5pt, fill: dim, tracking: 5pt)[THE FOUR FOXES · 1926]
-        v(0.3em)
-        line(length: 70%, stroke: 0.5pt + dark-accent)
-        v(0.7em)
-        text(size: 21pt, weight: "bold", fill: accent)[#name]
-        v(0.1em)
-        text(size: 10pt, fill: dim, style: "italic")["#nickname"]
-        v(0.6em)
-        line(length: 70%, stroke: 0.5pt + dark-accent)
+        #v(0.65em)
+        #text(size: 7.05pt, fill: dim, tracking: 4.9pt)[THE FOUR FOXES · 1926]
+        #v(0.26em)
+        #hrule(length: 72%, weight: 0.5pt)
+        #v(0.74em)
+        #text(font: "Linux Libertine Display", size: 21.4pt, fill: text-col, tracking: 0.85pt)[#upper(name)]
+        #v(0.18em)
+        #text(size: 8.9pt, fill: dim, style: "italic")[“#nickname”]
+        #v(0.62em)
+        #hrule(length: 72%, weight: 0.5pt)
       ]
-      v(0.5em)
-      rect(
-        width: 100%, height: 93mm,
-        stroke: 0.8pt + dark-accent,
-        fill: rgb("#0d0902"),
-        radius: 2pt,
-      )[
-        #align(center + horizon)[
-          #text(size: 7.5pt, fill: rgb("#3a2a10"), tracking: 1.5pt)[ILLUSTRATION]
+      v(0.55em)
+      if portrait != none {
+        block(
+          width: 100%,
+          height: 68mm,
+          clip: true,
+          stroke: 0.75pt + accent,
+          fill: white,
+          inset: 0pt,
+        )[
+          #align(center + horizon)[
+            #image(portrait, height: 100%)
+          ]
         ]
+      } else {
+        rect(
+          width: 100%,
+          height: 68mm,
+          stroke: 0.75pt + accent,
+          fill: white,
+        )[
+          #align(center + horizon)[
+            #text(size: 6.9pt, fill: dim, tracking: 2.2pt)[PRESS PLATE]
+          ]
+        ]
+      }
+      v(0.7em)
+      motto-block(motto)
+      v(0.65em)
+      [
+        #set text(size: 8.25pt)
+        #set par(leading: 0.5em, justify: true)
+        #description
       ]
     },
-    [THE FOUR FOXES DETECTIVE AGENCY],
+    [The Four Foxes Detective Agency],
   )
 
   // Page 1 · left column ─── BACK COVER
@@ -143,129 +183,105 @@
     {
       v(1fr)
       align(center)[
-        text(size: 7.5pt, fill: dim, tracking: 4pt)[THE FOUR FOXES]
-        v(0.3em)
-        line(length: 55%, stroke: 0.5pt + dark-accent)
-        v(0.6em)
-        text(size: 9pt, fill: rgb("#7a6040"), style: "italic")[
-          _…is a private detective agency_\
-          _that ran from 1923 through 1951._
-        ]
-        v(0.4em)
-        text(size: 9pt, fill: rgb("#7a6040"), style: "italic")[
-          _Four brothers, sons of a renowned_\
+        #text(font: "Linux Libertine Display", size: 7.6pt, fill: dark-accent, tracking: 3.7pt)[THE FOUR FOXES]
+        #v(0.24em)
+        #hrule(length: 58%, weight: 0.48pt)
+        #v(0.7em)
+        #text(size: 8.95pt, fill: text-col, style: "italic")[_...is a private detective agency_\
+          _that ran from 1923 through 1951._]
+        #v(0.45em)
+        #text(size: 8.95pt, fill: text-col, style: "italic")[_Four brothers, sons of a renowned_\
           _explorer, ran the agency during_\
-          _its whole existence._
-        ]
-        v(0.4em)
-        text(size: 9pt, fill: rgb("#7a6040"), style: "italic")[
-          _Every case was an extraordinary one._
-        ]
-        v(0.5em)
-        line(length: 55%, stroke: 0.5pt + dark-accent)
+          _its whole existence._]
+        #v(0.45em)
+        #text(size: 8.95pt, fill: text-col, style: "italic")[_Every case was an extraordinary one._]
+        #v(0.55em)
+        #hrule(length: 58%, weight: 0.48pt)
       ]
       v(1fr)
     },
-    [DICELESS RPG · 1926],
+    [Diceless Roleplaying · 1926],
   )
 
-  // Page 1 · centre column ─── RULES: Snapping + Playing Diceless
+  // Page 1 · centre column ─── RULES: Player/Character + Playing Diceless
   let panel-rules-playing = panelled(
     {
-      section-head("Snapping")
-      [If *all* your can/can'ts already have a condition, you *snap* — you see
-      the world differently and gain one new can/can't (something slightly
-      supernatural, or just above human peak).]
-      v(0.3em)
-      [Optionally, instead of adding one, *remove a condition* by permanently
-      dropping a can't.]
-      v(0.3em)
-      [Keep new can/can'ts aligned with your character's profile and motto.]
+      section-head("Player and Character")
+      [When the rules say *you*, they mean *the player* deciding for the
+      character. The player and the character are not the same person: the
+      player chooses and asks questions, while the character may know, notice,
+      or understand things the player doesn't.]
+      v(0.32em)
+      [When that matters, ask the GM directly: "what would my character know
+      here?", "what do they notice?", or "does my character think this is a bad
+      idea?" The GM answers honestly from the character's skills, instincts,
+      and experience.]
 
       section-head("Playing Diceless")
-      [*Ask what your character thinks.* You don't share your character's
-      skills. If they're a trained brawler, ask "do I think we can handle
-      him?" — the GM gives you an honest picture. If they're an investigator,
-      ask "what do I think is worth noting?" and the GM points you right.]
-      v(0.3em)
-      [*Pay attention to damage.* Damage is the GM signalling that your current
-      approach isn't working. Your character won't die from a sudden explosion
-      without warning — but they might die fighting a stronger opponent alone,
-      ignoring mounting injuries. When the GM says the rocks are getting bigger,
-      change course fast. Choosing the lesser evil is a big part of this game.]
+      [There are no dice or hidden target numbers. Say what your character does
+      and ask what they think, notice, or expect. If they're a trained
+      brawler, ask "do I think we can handle him?" If they're an investigator,
+      ask "what stands out to me?" Then choose what to risk.]
+      v(0.32em)
+      [The tension is not whether the attempt counts — it is what it costs, how
+      long it takes, and what damage it invites if you keep pushing.]
     },
-    [THE FOUR FOXES DETECTIVE AGENCY · DICELESS RPG],
+    [The Four Foxes Detective Agency · Diceless RPG],
   )
 
-  // Page 2 · left column ─── DESCRIPTION & MOTTO
-  let panel-description = panelled(
+  // Page 2 · left column ─── HOW TO PLAY + QUICK REFERENCE
+  let panel-play-guide = panelled(
     {
-      section-head("The Man")
-      description
-      v(0.7em)
-      box(
-        stroke: 0.8pt + dark-accent,
-        inset: (x: 0.8em, y: 0.5em),
-        fill: rgb("#0d0902"),
-        radius: 2pt,
-        width: 100%,
-      )[
-        #align(center)[
-          #text(size: 10pt, style: "italic", fill: motto-col)["#motto"]
-        ]
-      ]
+      section-head("How to Play This Fox")
+      [Useful angles to lean on — *not* marching orders. Follow them when they help; ignore them when the moment asks for something stranger.]
+      v(0.28em)
+      for item in play-notes { play-item(item) }
+
+      section-head("Quick Reference")
+      rule-item[Ask what your character would know, notice, or expect before you commit.]
+      rule-item[If a listed personal particular applies, it holds. If another blocks your approach, look for another angle, another cost, or rely on someone else.]
+      rule-item[The real risk is usually *time, exposure, position,* or *damage*. Ask which one you're about to pay.]
+      rule-item[Danger is signaled before it turns disastrous. Pay attention, then decide whether to keep pushing.]
+      rule-item[Damage becomes quirks or perks. If ignored, it deepens and starts shaping your choices.]
     },
-    [THE FOUR FOXES DETECTIVE AGENCY · DICELESS RPG],
+    [Play Advice + Quick System Reference],
   )
 
-  // Page 2 · centre column ─── CAN & CAN'T
-  let panel-cans = panelled(
+  // Page 2 · centre column ─── PERSONAL PARTICULARS
+  let panel-particulars = panelled(
     {
-      section-head("Can — cross a box each time fear strikes")
-      for item in can-items { can-item(item) }
-
-      section-head("Can't — cross a box each time fear strikes")
-      for item in cant-items { cant-item(item) }
-
-      v(0.4em)
-      align(center)[
-        text(size: 7.5pt, fill: dim, style: "italic")[
-          _At the 3rd crossed box, add a condition and reset all fear._
-        ]
-      ]
+      section-head("Personal Particulars")
+      for item in particulars-items { particular-item(item) }
     },
-    [→ SEE RULES PANELS FOR THE FULL SYSTEM],
+    [See Rules Panels for the Full System],
   )
 
-  // Page 2 · right column ─── RULES: Can/Can't rule + Fear + Conditions
+  // Page 2 · right column ─── RULES: Personal Particulars + Damage
   let panel-rules-system = panelled(
     {
-      section-head("Can and Can't")
+      section-head("Personal Particulars")
       [You have no attributes or dice. Everything beyond an average human is on
-      your list. *Can and can't are absolute.* If you _can_, nothing stops it.
-      If you _can't_, nothing permits it. No danger kills suddenly — the GM
-      always signals how things are going. *Pay close attention.*]
+      your list: exceptional capabilities, hard limits, and the conditions that
+      change what your fox can do. *Personal particulars are absolute.* If one
+      applies, it holds. If one says you cannot, you cannot force it. No danger
+      kills suddenly — the GM always signals how things are going. *Pay close
+      attention.*]
 
-      section-head("Fear")
-      [Fear strikes when you:]
-      v(0.1em)
-      fear-item[See humans dying.]
-      fear-item[Are being hunted.]
-      fear-item[See the supernatural.]
-      fear-item[Risk your life willingly.]
+      section-head("Damage")
+      [Damage can be physical or psychological. *Fear is mind damage.* Each
+      time you take damage, add a *quirk or perk* that changes play: a limp, a
+      weak grip, dizziness, hearing things, seeing movement at the edge of your
+      vision, small hallucinations, a fixation, or a compulsion.]
       v(0.2em)
-      [Each fear event *crosses off one can/can't* (good or bad) until a safe
-      night's sleep. You may cross a bad one first — but fear keeps building.]
-
-      section-head("Conditions")
-      [When you cross the *third* can/can't, add a *condition* to any
-      unconditioned ability. All fear then clears; you recover all can/can'ts.]
-      v(0.2em)
-      rule-item[*An object* you can lose — a hat, a book, a gun. (Tied to your body? Losing it costs a finger.)]
-      rule-item[*An activity* — smoking, drinking, praying. Something you could run out of or be forced to skip.]
-      rule-item[*A mannerism* — snapping fingers, a sign, kissing a ring. Something the player could forget to say.]
+      [Damage is not a number to track, and there is no limit to how much you
+      can carry. If you ignore it and keep pushing, it snowballs. The limp gets
+      worse, the whisper gets louder, the compulsion gets harder to resist.]
+      v(0.22em)
+      rule-item[Let damage reshape how you act and what you dare.]
+      rule-item[Ask the GM to sharpen or escalate ignored damage when the scene demands it.]
+      rule-item[Choose damage that fits the fiction; repeated pressure can deepen the same wound instead of adding a neat new one.]
     },
-    [→ CONTINUED ON BACK],
+    [Player Guidance on Back],
   )
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -273,9 +289,9 @@
   // Page 1 — outside: [BACK COVER | RULES: playing | COVER]
   grid(
     columns: (1fr, 1fr, 1fr),
-    gutter:  col-gap,
-    rows:    (panel-h,),
-    align:   top,
+    gutter: col-gap,
+    rows: (panel-h,),
+    align: top,
     panel-back-cover,
     panel-rules-playing,
     panel-cover,
@@ -283,14 +299,14 @@
 
   pagebreak()
 
-  // Page 2 — inside: [DESCRIPTION | CAN & CAN'T | RULES: system]
+  // Page 2 — inside: [HOW TO PLAY | PERSONAL PARTICULARS | RULES: damage]
   grid(
     columns: (1fr, 1fr, 1fr),
-    gutter:  col-gap,
-    rows:    (panel-h,),
-    align:   top,
-    panel-description,
-    panel-cans,
+    gutter: col-gap,
+    rows: (panel-h,),
+    align: top,
+    panel-play-guide,
+    panel-particulars,
     panel-rules-system,
   )
 

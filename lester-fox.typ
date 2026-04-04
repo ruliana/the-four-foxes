@@ -5,13 +5,8 @@
 
 #show: leaflet.with(
   // ── Colour palette ───────────────────────────────────────────────────────
-  accent:      rgb("#cc4466"),
-  dim:         rgb("#bb6688"),
-  dark-accent: rgb("#801833"),
-  footer-dim:  rgb("#300810"),
-  bg:          rgb("#1a0d0d"),
-  text-col:    rgb("#e8cccc"),
-  motto-col:   rgb("#dd7799"),
+  accent:      rgb("8a5556"),
+  dark-accent: rgb("6c3e40"),
 
   // ── Character ────────────────────────────────────────────────────────────
   name:        "Lester Fox",
@@ -21,16 +16,20 @@
     owns it and leaves like he never needed to. His brothers find him
     exasperating. Everyone else finds him irresistible.],
   motto:       "Relax, ok? I have it under control.",
+  portrait:    "assets/lester-fox.png",
 
-  can-items: (
-    [*Convince anyone* to do whatever he wants given time — as long as it's not obviously life-risking.],
-    [*Lie as convincingly as telling the truth.* Maybe more convincingly than the truth.],
-    [*Talk any opponent into hesitating* long enough to act — even if they are not human.],
-    [*Run as fast as an Olympic champion* when his life is threatened.],
-    [*Disguise himself as anyone* he has had enough time to study.],
-    [*Sense any danger* when standing behind someone else.],
+  particulars-items: (
+    [Given enough time, he can convince anyone to do whatever he wants, as long as it is not obviously life-risking.],
+    [He can lie as convincingly as telling the truth. Maybe even more convincingly than the truth itself.],
+    [He cannot win a fight, no matter how.],
+    [He can talk any opponent into hesitating for a moment, even if the opponent is not human.],
+    [When in a life-threatening situation, he can run as fast as an Olympic champion.],
+    [Given enough time, he can disguise himself as anyone he has seen closely. A more specific target requires more time, while a generic one can be quite fast.],
+    [He can sense danger if he is behind someone else, in other words, not leading and not alone.],
   ),
-  cant-items: (
-    [Win *any fight*, no matter what.],
+  play-notes: (
+    [Look for the social angle first: charm, delay, bluff, disguise, or getting someone to lower their guard.],
+    [Keep him smooth under pressure. Lester often survives by timing and nerve more than by force.],
+    [Play the confidence as real, but not infallible — when things go wrong, he improvises rather than admits it.],
   ),
 )
