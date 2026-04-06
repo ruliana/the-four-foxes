@@ -1,12 +1,13 @@
 # The Four Foxes
 
-A small Typst project for **printer-friendly, trifold character leaflets** for a **diceless pulp-detective RPG** set in **1926**.
+A Typst project for **printer-friendly, trifold leaflets** for a **diceless pulp-detective RPG** set in **1926**.
 
-Each leaflet is a self-contained A4 landscape sheet that folds into a compact handout with:
-- a front cover and portrait
-- short play guidance
-- the character's **Personal Particulars**
-- the core diceless rules needed at the table
+The repo currently contains:
+- character leaflets for the Fox brothers
+- a **GM leaflet** about diceless play, stakes, telegraphing, scene framing, and improvisation
+- a **plot leaflet** about nodes, connections, graph growth, and continuity between cases
+
+Each leaflet is a self-contained A4 landscape sheet that folds into a compact handout.
 
 The current cast is the four Fox brothers: **Larry, Lester, Moe, and Sam**.
 
@@ -20,7 +21,7 @@ The current cast is the four Fox brothers: **Larry, Lester, Moe, and Sam**.
 - **Tooling:** [Typst](https://typst.app/)
 - **Theme:** 1920s detective / pulp adventure / occult mystery
 - **System style:** diceless, fiction-first, character-driven
-- **Output:** printable PDF leaflets
+- **Output:** printable PDF trifolds for characters and GM/reference material
 
 ## The foxes
 
@@ -43,18 +44,29 @@ The leaflets are built around a few simple ideas:
 
 In other words: this is about strong fictional positioning, vivid limitations, and characters who solve problems in very different ways.
 
+## GM and plot reference leaflets
+
+- [`gm-leaflet.typ`](./gm-leaflet.typ) / [`gm-leaflet.pdf`](./gm-leaflet.pdf) — diceless play, telegraphing, stakes, scene framing, and meaningful improvisation
+- [`plot-leaflet.typ`](./plot-leaflet.typ) / [`plot-leaflet.pdf`](./plot-leaflet.pdf) — nodes, connections, graph growth, convergence, powers, and continuity between cases
+
+Current content split:
+- **GM leaflet** = how to run diceless, player-driven play at the table
+- **Plot leaflet** = how to build and grow cases through the graph
+
 ## Repository layout
 
 ```text
 .
 ├── _leaflet-template.typ        # shared trifold layout and rules panels
+├── gm-leaflet.typ               # GM-facing trifold reference
+├── plot-leaflet.typ             # plot/case trifold reference
 ├── larry-fox.typ                # Larry leaflet definition
 ├── lester-fox.typ               # Lester leaflet definition
 ├── moe-fox.typ                  # Moe leaflet definition
 ├── sam-fox.typ                  # Sam leaflet definition
 ├── assets/                      # portrait art and README preview images
 ├── *.pdf                        # compiled printable outputs
-└── .agents/skills/four-foxes-leaflets-and-characters/
+└── .agents/skills/the-four-foxes/
     ├── SKILL.md                 # project workflow and design guidance
     ├── references/
     └── scripts/
@@ -80,19 +92,30 @@ typst fonts | grep -i "Linux Libertine"
 typst compile ./larry-fox.typ ./larry-fox.pdf
 ```
 
+Replace `larry` as needed, or compile `gm-leaflet.typ` / `plot-leaflet.typ` the same way.
+
 ### Compile all leaflets
 
 ```bash
-./.agents/skills/four-foxes-leaflets-and-characters/scripts/compile-all.sh
+./.agents/skills/the-four-foxes/scripts/compile-all.sh
 ```
 
 ### Preview a generated PDF on macOS
 
 ```bash
-./.agents/skills/four-foxes-leaflets-and-characters/scripts/preview-pdf.sh ./larry-fox.pdf
+./.agents/skills/the-four-foxes/scripts/preview-pdf.sh ./larry-fox.pdf
 ```
 
 That script renders a large PNG preview into a temporary directory and prints the output path.
+
+### Export PDF pages as separate PNGs
+
+```bash
+mkdir -p /tmp/four-foxes-pages
+magick -density 180 ./plot-leaflet.pdf /tmp/four-foxes-pages/plot-leaflet-%d.png
+```
+
+Use this when you want to inspect a specific page or panel closely.
 
 ## Printing
 
@@ -145,20 +168,56 @@ A few recurring principles shape the repo:
 - **Conditionals are good.** Sober vs. drunk, alone vs. protected, enough time vs. no time.
 - **Printer-friendly output matters.** White background, dark text, muted accents.
 - **Small-image readability matters.** Portraits are designed to survive a short horizontal cover slot.
+- **Compact trifolds should teach procedure, not drown in lists.**
+- **The GM leaflet and plot leaflet have distinct jobs.** Keep the diceless play guidance separate from the graph procedure.
+
+For the current plot procedure:
+- when something becomes important in the story, add a **new unconnected node**
+- when players investigate, learn something, or resolve a stake, **connect existing nodes**
+- keep unconnected nodes low, and avoid overcrowding any one node with too many links
+- continuity between cases comes from **reusing nodes from previous cases**, not from maintaining a separate World Map
+
+## Agent-harness support
+
+This repo is meant to work well with agent harnesses such as Pi, Claude Code, or Cursor.
+It ships with a project skill at [`.agents/skills/the-four-foxes/SKILL.md`](./.agents/skills/the-four-foxes/SKILL.md), and that skill should be picked up automatically when you ask for help with The Four Foxes from this folder.
+
+### Current capabilities
+
+Right now, the skill is most useful for:
+- creating or revising characters for the game
+- revising `gm-leaflet.typ` and `plot-leaflet.typ`
+- tightening rules/reference copy for compact trifolds
+- generating image prompts you can paste into Gemini or ChatGPT for portraits or location art in the repo's house style
+- compiling PDFs and checking rendered output visually
+
+### How to use it
+
+Ask in plain language, for example:
+- "Create a new Four Foxes character inspired by a washed-up stage magician."
+- "Revise this character so they are stronger at investigation and weaker in a fight."
+- "Rewrite the GM leaflet so it focuses only on diceless play and scene framing."
+- "Update the plot leaflet to clarify how nodes and connections are added during play."
+- "Write a Gemini prompt for this character's portrait in the Four Foxes style."
+- "Turn this character description into a ChatGPT image prompt."
+
+We'll keep this section updated as the skill gains more features.
 
 ## Project docs
 
 If you want the full workflow for editing, art direction, troubleshooting, and QA, start here:
 
-- [`.agents/skills/four-foxes-leaflets-and-characters/SKILL.md`](./.agents/skills/four-foxes-leaflets-and-characters/SKILL.md)
-- [`.agents/skills/four-foxes-leaflets-and-characters/references/troubleshooting.md`](./.agents/skills/four-foxes-leaflets-and-characters/references/troubleshooting.md)
+- [`.agents/skills/the-four-foxes/SKILL.md`](./.agents/skills/the-four-foxes/SKILL.md)
+- [`.agents/skills/the-four-foxes/references/troubleshooting.md`](./.agents/skills/the-four-foxes/references/troubleshooting.md)
 
 Those docs cover:
 - character creation guidance
+- rules-leaflet guidance for `gm-leaflet.typ` and `plot-leaflet.typ`
 - Typst gotchas
 - image prompting for the house style
 - compile and preview workflow
 - printer-friendliness checks
+- graph/continuity procedure for case-building leaflets
 
 ## Notes on assets
 

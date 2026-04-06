@@ -1,43 +1,52 @@
 ---
-name: four-foxes-leaflets-and-characters
-description: Create, edit, validate, compile, and preview Four Foxes Typst leaflets and characters. Use when working on `_leaflet-template.typ` or any `*-fox.typ`, creating or revising character concepts and sheet content, generating portrait or location image prompts in the house style, integrating approved images into sheets, fixing Typst syntax/layout issues, making the leaflets printer-friendly, checking fonts, and generating PDFs/previews.
+name: the-four-foxes
+description: Support work on The Four Foxes game in this repository. Use when creating or revising characters, cases, game-master materials, rules text, image prompts, Typst leaflets or templates, assets, printer-friendly layout, or when compiling and previewing PDFs for this project.
 compatibility: macOS with `typst`, `qlmanage`, and the `Linux Libertine` font installed.
 ---
 
-# Four Foxes Leaflets & Character Creation
+# The Four Foxes Game Workflow
 
-Project skill for the Typst leaflets and character creation workflow in this repository.
+Project skill for working on The Four Foxes in this repository, including characters, cases, game-master materials, Typst leaflets, and image prompting.
 
 ## What this skill covers
 
-This skill spans four closely related kinds of work:
+This skill spans five closely related kinds of work:
 
-1. **Character creation and revision**
+1. **Game content and support materials**
+   - outlining or revising cases, clues, suspects, twists, and scene structure
+   - drafting GM-facing notes, prompts, and other material used to run the game
+   - keeping new content tonally aligned with the setting and play style
+
+2. **Character creation and revision**
    - inventing new Four Foxes characters, family variants, allies, and case-specific outsiders
    - revising names, nicknames, mottos, descriptions, play notes, and Personal Particulars
    - sharpening a character's flavour, constraints, and table usefulness
 
-2. **Typst leaflet and template work**
+3. **Typst leaflet and template work**
    - editing `_leaflet-template.typ`
    - editing any `*-fox.typ` sheet
-   - fixing syntax, layout, color, font, spacing, and rendering issues
+   - editing `gm-leaflet.typ` and `plot-leaflet.typ`
+   - fixing syntax, layout, color, font, spacing, rendering issues, and compact rules-reference layouts
 
-3. **Image prompt generation and art direction**
-   - generating Gemini-ready prompts for character portraits in the Four Foxes house style
+4. **Image prompt generation and art direction**
+   - generating Gemini-ready or ChatGPT-ready prompts for character portraits in the Four Foxes house style
    - generating prompts for location art, scene plates, and atmospheric establishing images
    - refining prompts from iteration feedback after seeing actual generated images in the sheet layout
    - keeping art readable in the small printed cover image area
 
-4. **Compile, preview, and visual QA**
+5. **Compile, preview, and visual QA**
    - compiling PDFs
    - checking printer-friendliness
    - rendering previews and inspecting the actual output for mistakes a successful compile will not catch
 
 ## Use this skill when
 
+- working on anything related to The Four Foxes game in this repository
 - editing `_leaflet-template.typ`
 - editing any character sheet such as `larry-fox.typ`, `lester-fox.typ`, `moe-fox.typ`, or `sam-fox.typ`
+- editing `gm-leaflet.typ` or `plot-leaflet.typ`
 - creating a new character sheet, variant sibling, family friend, or case-specific ally
+- creating or revising cases, clues, suspects, or GM-facing reference material
 - drafting or revising a character's name, nickname, motto, description, play notes, or personal particulars
 - generating or refining prompts for character portraits or location illustrations
 - copying approved generated images into the project and wiring them into a character sheet
@@ -52,6 +61,8 @@ This skill spans four closely related kinds of work:
 
 - `_leaflet-template.typ` — shared trifold A4 landscape template
 - `*-fox.typ` — character-specific files that import the template and override palette/content
+- `gm-leaflet.typ` — GM-facing trifold about diceless play, scene framing, stakes, and improvisation
+- `plot-leaflet.typ` — plot/case trifold about nodes, connections, graph growth, and continuity between cases
 - `assets/` — generated portraits and other sheet-ready image assets
 - output PDFs are compiled per character
 - character sheets now use a single `particulars-items` list under the heading **Personal Particulars**
@@ -81,6 +92,69 @@ The project uses this pattern:
 - The template can show a generated portrait through the `portrait` argument; if omitted, it falls back to the placeholder box.
 - The inside center panel is **Personal Particulars**.
 - Personal Particulars are written as a **single mixed list of concrete statements**.
+
+## Rules leaflet guidance
+
+Use this section when the task is about `gm-leaflet.typ`, `plot-leaflet.typ`, or another compact GM/reference trifold.
+
+### 1) Keep leaflet ownership clear
+
+The current split is:
+
+- **GM leaflet** — self-contained guidance on **diceless play**, **telegraphing**, **stakes**, **scene framing**, and **meaningful improvisation**. It should teach how to run play at the table and let the players drive.
+- **Plot leaflet** — self-contained guidance on **nodes**, **connections**, **graph growth**, **convergence**, and **continuity between cases**.
+
+Do not blur these by default. In particular:
+- the **GM leaflet should not explain the graph/node procedure**
+- NPC/case/plot-construction procedures belong in the **plot leaflet** unless the user asks for a different split
+
+### 2) Prefer procedure over encyclopedic lists
+
+These trifolds are compact. Long generic inspiration tables often read worse than a short procedure.
+
+Prefer:
+- concise rules text
+- short examples
+- small diagrams
+- case-specific material only when the document is actually a case handout or case trifold
+
+Avoid filling a general-purpose rules trifold with long People / Places / Objects / Events lists unless the user specifically wants them.
+
+### 3) Current plot-graph procedure
+
+For the current game text, treat the graph as a live GM tool with these rules:
+
+- when something becomes part of the story, **add a new unconnected node**
+- this includes a GM-introduced clue or something the players decide matters
+- when players **look for a clue, get information, or resolve a relevant stake**, **connect existing nodes**
+- keep **unconnected nodes** between **0 and 2**
+- keep **connections per node** usually at **1 to 2**
+- **3 connections** is rare
+- **4 connections never happens**
+- if you are running out of sensible connections, **add more nodes** instead of overcrowding old ones
+
+Convergence comes from **connecting new material to the existing graph**, not from over-planning hidden structure.
+
+### 4) Continuity between cases
+
+Do not use or introduce a separate **World Map** system unless the user explicitly asks for it.
+
+The current continuity model is:
+- reuse nodes from previous cases
+- carry forward people, places, powers, and unresolved secrets that still have weight
+- connect those nodes into the seed of the next case
+
+### 5) Diagram guidance
+
+Small diagrams are worth using when they explain procedure faster than prose.
+
+For this project, prefer diagrams that are:
+- compact
+- readable at leaflet scale
+- lighter than the surrounding prose
+- a little **hand-drawn / sketched** rather than rigid UI boxes when showing graph examples
+
+Use diagrams to clarify rules, not to decorate empty space.
 
 ## Character creation guidance
 
@@ -263,6 +337,18 @@ For location prompts, specify:
 
 ## Recommended workflows
 
+### For editing rules/reference trifolds
+
+1. Read the whole target file, not only the panel you expect to change.
+2. Identify what the leaflet owns conceptually before editing copy.
+3. Keep each leaflet self-contained.
+4. Favor short procedures and strong headings over long catalogs of examples.
+5. Compile the leaflet.
+6. Preview the full PDF and also export page PNGs when checking panel balance.
+7. Inspect both the outside and inside pages.
+8. Check whether the leaflet still scans quickly at print size.
+9. If you add a diagram, make sure it explains a rule and still reads clearly when exported to PNG.
+
 ### For character creation or revision
 
 Use this when the task is primarily about concept, writing, or gameable sheet content.
@@ -331,13 +417,13 @@ Replace `larry` as needed.
 ### Compile all non-template leaflets
 
 ```bash
-./scripts/compile-all.sh
+./.agents/skills/the-four-foxes/scripts/compile-all.sh
 ```
 
 ### Render a preview image from a PDF on macOS
 
 ```bash
-./scripts/preview-pdf.sh ./larry-fox.pdf
+./.agents/skills/the-four-foxes/scripts/preview-pdf.sh ./larry-fox.pdf
 ```
 
 This prints the preview file path. Read that image to inspect the rendered layout.
@@ -438,6 +524,8 @@ Always inspect a rendered preview. Check for:
 - text density that makes a panel feel cramped even if it technically fits
 - whether quick-reference or guidance content is still easy to scan at a glance
 - whether a portrait or location image still reads clearly at the final printed size
+- for trifolds, whether **both outside and inside pages** work as a pair
+- whether any small diagram still reads clearly in the exported page PNG, not just in the PDF viewer
 
 ### 6) Portraits that look good alone may still fail in the sheet
 
@@ -471,6 +559,22 @@ When `_leaflet-template.typ` changes:
 - verify the footer still anchors to the bottom of each panel
 - verify page margins and `panel-h` still agree
 - verify print friendliness on a white background
+
+### Rules-leaflet checklist
+
+When editing `gm-leaflet.typ`, `plot-leaflet.typ`, or another compact rules trifold:
+
+- confirm the leaflet stays self-contained
+- confirm the content split is still correct:
+  - GM leaflet = diceless play / stakes / scene framing / improvisation
+  - plot leaflet = nodes / connections / graph growth / continuity
+- remove long generic lists unless they are truly necessary
+- prefer compact procedure and examples that scan well
+- compile the affected leaflet
+- preview the PDF and export page PNGs when needed
+- inspect both pages, not just the edited panel
+- check footer labels against the actual panel contents
+- if using a graph example, keep it compact and readable at print size
 
 ### Character-file checklist
 

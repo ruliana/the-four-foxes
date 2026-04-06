@@ -12,15 +12,15 @@
 //   ┌───────────────┬──────────────────────────┬───────────────┐
 //   │  BACK COVER   │  THE PROCESS             │  COVER        │
 //   │  player       │  seed · core · play ·    │  title +      │
-//   │  attention    │  resolve · world map      │  the trick    │
+//   │  attention    │  resolve · carry fwd      │  the trick    │
 //   └───────────────┴──────────────────────────┴───────────────┘
 //
 // Page 2 — inside faces (left → right when sheet is flat):
 //
 //   ┌───────────────────┬──────────────────────┬──────────────────────┐
-//   │  NODE TYPES       │  QUICK DRAW          │  USING THE GRAPH     │
-//   │  + seed shapes    │  lists               │  convergence ·       │
-//   │                   │                      │  world map · powers  │
+//   │  NODE TYPES       │  THE LIVE GRAPH      │  USING THE GRAPH     │
+//   │  + seed shapes    │  two moves ·         │  convergence ·       │
+//   │                   │  constraints         │  powers · carry fwd  │
 //   └───────────────────┴──────────────────────┴──────────────────────┘
 
 // ── Palette ──────────────────────────────────────────────────────────────────
@@ -178,13 +178,13 @@
     step-item("2. Core.")[Before play, define the hidden truth at the centre: what really happened, who is truly behind it. Keep this to yourself. Every clue you add during play should be consistent with it.]
 
     v(0.1em)
-    step-item("3. Play.")[When players investigate something, add it to the graph. Connect new nodes to existing ones. The graph grows from their choices, always pointing — openly or not — toward the core.]
+    step-item("3. Play.")[Add a node whenever something enters the story. Connect nodes when players investigate or resolve a stake. The graph grows from their choices, always pointing — openly or not — toward the core.]
 
     v(0.1em)
     step-item("4. Resolve.")[When players name the truth — when they reach the core — the case closes.]
 
     v(0.1em)
-    step-item("5. Carry forward.")[Move persistent nodes to the World Map. Powers continue. People survive. Places remember. The next case inherits what this one uncovered.]
+    step-item("5. Carry forward.")[When the case closes, take any node that still has weight — a Power, a survivor, an unresolved secret. Connect it into the seed of the next case. The story accumulates.]
 
     section-head("Connections")
     [Connections between nodes are freeform labeled relationships. Write how two nodes relate: _hired_, _fears_, _owns_, _witnessed_, _is looking for_, _is hiding from_. No taxonomy — just the truth of the relationship.]
@@ -222,56 +222,128 @@
 
     align(center)[#hrule(length: 80%, weight: 0.4pt)]
     v(0.2em)
-    [*Continuity* — World Map node + two new nodes]
+    [*Continuity* — Node from a past case + two new nodes]
     [#set text(size: 8.1pt, style: "italic", fill: dim)
-    "A thread from a previous case returns in a new form."]
+    "A thread from before returns in a new form."]
     v(0.2em)
     align(center)[#hrule(length: 80%, weight: 0.4pt)]
   },
   [Node Types · Seed Shapes · The Four Foxes],
 )
 
-// Page 2 · centre column ─── QUICK DRAW LISTS
+// Page 2 · centre column ─── THE LIVE GRAPH
 #let panel-lists = panelled(
   {
-    section-head("Quick Draw")
-    [Draw one from any three lists to seed a case.]
+    section-head("The Two Moves")
+    [Every change to the graph is one of two moves:]
+    v(0.3em)
+    note-item[*Add a node* — something enters the story. The GM introduces a clue; a player's attention lands on a person, place, or object. Write it as a new node. Leave it unconnected.]
+    v(0.1em)
+    note-item[*Connect nodes* — something becomes clear. Players investigate a lead, gather information, or resolve a stake. Draw a connection and label it: #emph[hired, owns, witnessed, fears, is hiding from].]
 
-    section-head("People")
-    note-item[A grieving widow with sharp eyes]
-    note-item[A corrupt beat cop who knows too much]
-    note-item[A jazz musician who saw the wrong thing]
-    note-item[An antiquities dealer with a sealed back room]
-    note-item[A Prohibition agent working two sides]
-    note-item[A society matron protecting a family secret]
-    note-item[A foreign diplomat beyond jurisdiction]
-    note-item[A street informant who is running scared]
+    section-head("Live Constraints")
+    rule-item[*Unconnected nodes: 0–2.* Suspense lives in loose ends — but too many open threads lose the shape of the investigation.]
+    rule-item[*Connections per node: 1–2.* A third is possible. Four never happens.]
+    rule-item[*When nodes are full,* add a new unconnected node to reopen the graph.]
 
-    section-head("Places")
-    note-item[A speakeasy basement with a second door]
-    note-item[A waterfront warehouse cleared in a hurry]
-    note-item[A locked private club, members only]
-    note-item[A museum gallery after closing time]
-    note-item[A Chinatown address that keeps moving]
-    note-item[A mansion room sealed for thirty years]
+    section-head("Example")
 
-    section-head("Objects")
-    note-item[A coded ledger nobody claims]
-    note-item[A stolen relic with no legal provenance]
-    note-item[A photograph that should not exist]
-    note-item[A sealed letter addressed to a dead man]
-    note-item[A shipment manifest for something unnamed]
+    let _nw = 32mm
+    let _nh = 9mm
+    let _gh = 16mm
+    let _gv = 10mm
+    let _paper = rgb("f2f0ee")
 
-    section-head("Events")
-    note-item[A murder staged as an accident]
-    note-item[A disappearance after a séance]
-    note-item[A deal that went badly wrong]
-    note-item[A ritual that was interrupted]
+    let _n(t, nm) = block(width: _nw + 0.8mm, height: _nh + 0.8mm)[
+      #place(top + left, dx: 0.45mm, dy: 0.35mm)[
+        #box(
+          width: _nw,
+          height: _nh,
+          fill: _paper,
+          stroke: 0.28pt + dark-accent,
+          radius: 1.9pt,
+        )[]
+      ]
+      #place(top + left, dx: 0mm, dy: 0mm)[
+        #box(
+          width: _nw,
+          height: _nh,
+          fill: none,
+          stroke: 0.42pt + dark-accent,
+          radius: 1.35pt,
+        )[]
+      ]
+      #place(top + left, dx: 2.2mm, dy: 1.05mm)[
+        #text(size: 5.8pt, fill: dim, tracking: 0.7pt)[#upper(t)]
+        #linebreak()
+        #text(size: 7.8pt, fill: text-col)[#nm]
+      ]
+    ]
+    let _f(t, nm) = block(width: _nw + 0.8mm, height: _nh + 0.8mm)[
+      #place(top + left, dx: 0.45mm, dy: 0.35mm)[
+        #box(
+          width: _nw,
+          height: _nh,
+          fill: white,
+          stroke: (paint: dim, dash: "dashed", thickness: 0.24pt),
+          radius: 1.9pt,
+        )[]
+      ]
+      #place(top + left, dx: 0mm, dy: 0mm)[
+        #box(
+          width: _nw,
+          height: _nh,
+          fill: none,
+          stroke: (paint: dim, dash: "dashed", thickness: 0.42pt),
+          radius: 1.35pt,
+        )[]
+      ]
+      #place(top + left, dx: 2.2mm, dy: 1.05mm)[
+        #text(size: 5.8pt, fill: dim, tracking: 0.7pt)[#upper(t)]
+        #linebreak()
+        #text(size: 7.8pt, fill: dim)[#nm]
+      ]
+    ]
+    let _lbl(s) = text(size: 6.2pt, fill: dim, style: "italic")[#s]
+
+    block(height: _nh * 2 + _gv + 2mm, width: 100%)[
+      #place(top + left, dx: 0mm,        dy: 0mm)[#_n("person", "Viktor Slade")]
+      #place(top + left, dx: _nw + _gh,  dy: 0mm)[#_n("place",  "Pier 17")]
+      #place(top + left, dx: 0mm,        dy: _nh + _gv)[#_n("event",  "The Break-in")]
+      #place(top + left, dx: _nw + _gh,  dy: _nh + _gv)[#_f("person", "Rose Kwan")]
+
+      // H connection: Viktor Slade → Pier 17
+      #place(top + left, dx: _nw - 0.2mm, dy: _nh / 2 + 0.15mm)[
+        #line(length: _gh + 0.6mm, stroke: 0.36pt + dim)
+      ]
+      #place(top + left, dx: _nw + 0.35mm, dy: _nh / 2 - 0.15mm)[
+        #line(length: _gh - 0.9mm, stroke: 0.22pt + dim)
+      ]
+      #place(top + left, dx: _nw + 1.5mm, dy: _nh / 2 - 3.8mm)[
+        #_lbl[was seen at]
+      ]
+
+      // V connection: Viktor Slade → The Break-in
+      #place(top + left, dx: _nw / 2 + 0.15mm, dy: _nh)[
+        #line(start: (0pt, 0pt), end: (0pt, _gv + 0.35mm), stroke: 0.36pt + dim)
+      ]
+      #place(top + left, dx: _nw / 2 - 0.2mm, dy: _nh + 0.3mm)[
+        #line(start: (0pt, 0pt), end: (0pt, _gv - 0.65mm), stroke: 0.22pt + dim)
+      ]
+      #place(top + left, dx: _nw / 2 + 1.5mm, dy: _nh + _gv / 2 - 2mm)[
+        #_lbl[witnessed]
+      ]
+    ]
+
+    v(0.2em)
+    align(center)[
+      #text(size: 6.2pt, fill: dim, style: "italic")[dashed border = unconnected node]
+    ]
   },
-  [Quick Draw Lists · The Four Foxes],
+  [The Live Graph · The Four Foxes],
 )
 
-// Page 2 · right column ─── USING THE GRAPH + WORLD MAP
+// Page 2 · right column ─── USING THE GRAPH
 #let panel-using = panelled(
   {
     section-head("The Convergence Effect")
@@ -279,21 +351,20 @@
     v(0.32em)
     [It was not. The graph structure creates this effect from organic improvisation. Let it.]
     v(0.32em)
-    rule-item[Keep every new node consistent with the core you defined before play. This is the only discipline required.]
-    rule-item[When in doubt, connect the new node to something already on the graph. Convergence follows.]
-
-    section-head("The World Map")
-    [The World Map is not a separate system — it is whatever nodes the GM chooses to carry forward after a case closes.]
-    v(0.32em)
-    rule-item[At the end of each session, decide which nodes still have weight. Move them to the World Map.]
-    rule-item[To begin the next case, pull one node from the World Map into the new seed. The story accumulates.]
+    rule-item[Convergence comes from connection, not planning. The effect appears because new nodes keep touching something already on the graph.]
+    rule-item[When in doubt, connect the new node to something already on the graph. Paths converge on their own.]
 
     section-head("Powers")
     [Powers — cults, foreign interests, ancient forces, conspiracies that span decades — persist across every case. A Power's plan does not end because one of its members was caught.]
     v(0.32em)
     [A Power need not appear directly. Its footprint — a suspicious death, a missing object, a person acting under instructions — may be all the players ever see. Until it isn't.]
+
+    section-head("Between Cases")
+    [When a case closes, some nodes keep weight: a Power still active, a witness who survived, a secret that went unresolved. Take those nodes into the seed of your next case. Connect them to the new starting nodes.]
+    v(0.32em)
+    [Their choices determine what persists. The graph follows where they look — and remembers what they left behind.]
   },
-  [The Graph · World Map · Powers · The Four Foxes],
+  [The Graph · Powers · Between Cases · The Four Foxes],
 )
 
 // ── Render ────────────────────────────────────────────────────────────────────

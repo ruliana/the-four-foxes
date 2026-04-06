@@ -10,7 +10,7 @@
 //
 //   ┌───────────────┬──────────────────────────┬───────────────┐
 //   │  BACK COVER   │  THE PRINCIPLES          │  COVER        │
-//   │  low-prep     │  distilled list          │  title +      │
+//   │  diceless     │  distilled list          │  title +      │
 //   │  philosophy   │                          │  philosophy   │
 //   └───────────────┴──────────────────────────┴───────────────┘
 //
@@ -19,7 +19,7 @@
 //   ┌───────────────────┬──────────────────────┬──────────────────────┐
 //   │  TELEGRAPHING     │  THE GM'S MOVES      │  GM TOOLS            │
 //   │  & PERCEPTION     │  yes · stakes ·      │  particulars ·       │
-//   │                   │  costs               │  NPCs · graph        │
+//   │                   │  costs               │  scene design        │
 //   └───────────────────┴──────────────────────┴──────────────────────┘
 
 // ── Palette ──────────────────────────────────────────────────────────────────
@@ -116,18 +116,15 @@
     [
       #set text(size: 8.25pt)
       #set par(leading: 0.5em, justify: true)
-      This is not a game you plan for — it is a game you steer. The case is a
-      graph of connections. The players are the engine. Your job is to make every
-      choice matter.
+      This is not a game you plan for — it is a game you steer. No dice, no randomness — only decisions and their costs.
 
       #v(0.45em)
 
-      There are no dice to hide behind. Only stakes, consequences, and the story
-      that grows from how the players pull on the threads.
+      The players make choices. Your job is to make every choice feel real: present what is at stake, follow where they go, and let the consequences land.
 
       #v(0.45em)
 
-      Every tool in this leaflet exists to serve that story.
+      Every tool in this leaflet exists to serve that craft.
     ]
   },
   [The Four Foxes Detective Agency · 1926],
@@ -142,18 +139,18 @@
       #v(0.24em)
       #hrule(length: 58%, weight: 0.48pt)
       #v(0.7em)
-      #text(size: 8.95pt, fill: text-col, style: "italic")[_This is a low-preparation game._]
+      #text(size: 8.95pt, fill: text-col, style: "italic")[_This is a diceless game._]
       #v(0.45em)
-      #text(size: 8.95pt, fill: text-col, style: "italic")[_You do not build a story and fit_\
-        _the players into it. You build a_\
-        _web of connections and shape_\
-        _the story that grows from how_\
-        _they pull on the threads._]
+      #text(size: 8.95pt, fill: text-col, style: "italic")[_There are no rolls to hide behind._\
+        _Every consequence is a choice —_\
+        _made in the open, at the table,_\
+        _with everyone watching._]
       #v(0.45em)
-      #text(size: 8.95pt, fill: text-col, style: "italic")[_Every twist is a new node._\
-        _Every surprise, a new relationship._\
-        _The graph is not a blueprint —_\
-        _it is an invitation._]
+      #text(size: 8.95pt, fill: text-col, style: "italic")[_You do not plan what happens._\
+        _You plan what is at stake._\
+        _The players drive._\
+        _Your job is to follow_\
+        _and make every choice matter._]
       #v(0.55em)
       #hrule(length: 58%, weight: 0.48pt)
     ]
@@ -237,20 +234,16 @@
     v(0.32em)
     [Spotlight is natural and welcome. Some scenes belong to one fox. Some belong to all of them. Both are good. Every Particular should get its moment across the session.]
 
-    section-head("NPCs")
-    [Every NPC needs two things:]
-    v(0.2em)
-    note-item[*Tell* — one specific detail that makes them stick: a speech habit, a nervous gesture, an unusual feature.]
-    note-item[*Drive* — one statement fusing what they want and what they are hiding, connected to the graph.]
-    v(0.1em)
-    [Minor NPCs need only a Tell.]
-
-    section-head("New Nodes Are Twists")
-    [The plot graph is a live tool. Add nodes and relationships mid-session in response to what the players do.]
+    section-head("Building Scenes")
+    [Every scene needs one thing at stake. Make it visible before anyone acts: a decision that cannot wait, a clock that is running, a consequence already in motion.]
     v(0.32em)
-    [That is how the story gets interesting — not from planning twists in advance, but from growing them in play. The graph is never finished until the case is.]
+    [Frame toward choice, not description. Tell the players what they see, what they sense, what is at risk. Then stop and let them drive.]
+    v(0.32em)
+    [When a scene goes somewhere you did not expect, that is the game working. Follow it. Your job is not to redirect the players toward what you planned — it is to make what they choose feel real.]
+    v(0.32em)
+    [Cut when the decisive moment is over. Move to the consequence immediately. Do not linger.]
   },
-  [Particulars · NPCs · Plot Graph],
+  [Particulars · Scene Design · Building Scenes],
 )
 
 // ── Render ────────────────────────────────────────────────────────────────────
