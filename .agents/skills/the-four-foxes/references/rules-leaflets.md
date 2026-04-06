@@ -1,6 +1,6 @@
 # Rules Leaflets
 
-Use this reference when the task is about `gm-leaflet.typ`, `plot-leaflet.typ`, or another compact GM/reference trifold.
+Use this reference when the task is about `game-master/gm-leaflet.typ`, `game-master/plot-leaflet.typ`, or another compact GM/reference trifold.
 
 ## Keep leaflet ownership clear
 

@@ -3,13 +3,10 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../../../.."
 
-for src in ./*.typ; do
-  [ -e "$src" ] || continue
-  base="$(basename "$src")"
-  [[ "$base" == _* ]] && continue
+while IFS= read -r src; do
   out="${src%.typ}.pdf"
   echo "Compiling $src -> $out"
-  typst compile "$src" "$out"
-done
+  typst compile --root . "$src" "$out"
+done < <(rg --files characters game-master cases -g '*.typ' | sort)
 
 echo "Done."

@@ -14,8 +14,8 @@ This skill now routes specialized work into smaller reference documents. Read th
 
 - working on anything related to The Four Foxes game in this repository
 - editing `_leaflet-template.typ`
-- editing any `*-fox.typ` sheet
-- editing `gm-leaflet.typ` or `plot-leaflet.typ`
+- editing any `characters/*-fox.typ` sheet
+- editing `game-master/gm-leaflet.typ` or `game-master/plot-leaflet.typ`
 - creating or revising cases, clues, suspects, twists, node lists, or GM-facing material
 - drafting or revising a character's name, nickname, motto, description, play notes, or Personal Particulars
 - generating or refining prompts for character portraits or location illustrations
@@ -37,9 +37,9 @@ This skill now routes specialized work into smaller reference documents. Read th
 ## Repository entry points
 
 - `_leaflet-template.typ` — shared trifold A4 landscape template
-- `*-fox.typ` — character-specific sheets using the template
-- `gm-leaflet.typ` — GM-facing leaflet about diceless play and scene framing
-- `plot-leaflet.typ` — plot/case leaflet about nodes, connections, graph growth, and continuity
+- `characters/*-fox.typ` — character-specific sheets using the template
+- `game-master/gm-leaflet.typ` — GM-facing leaflet about diceless play and scene framing
+- `game-master/plot-leaflet.typ` — plot/case leaflet about nodes, connections, graph growth, and continuity
 - `assets/` — generated portraits and other sheet-ready images
 - `references/` — this skill's guidance documents
 - `scripts/compile-all.sh` — compile all non-template leaflets

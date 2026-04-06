@@ -1,7 +1,7 @@
 // Sam Fox — "Cunning Sam"
 // The Four Foxes, 1926
 
-#import "_leaflet-template.typ": leaflet
+#import "../_leaflet-template.typ": leaflet
 
 #show: leaflet.with(
   // ── Colour palette ───────────────────────────────────────────────────────

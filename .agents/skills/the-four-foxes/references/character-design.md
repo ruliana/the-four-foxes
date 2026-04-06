@@ -117,7 +117,7 @@ New characters can be:
 
 ## Workflow for creating a new character sheet in Typst
 
-1. Read `_leaflet-template.typ` and at least two existing character files.
+1. Read `_leaflet-template.typ` and at least two existing files in `characters/`.
 2. Build the character from archetypes first, not from empty mechanics slots.
 3. Draft the character in plain language before writing Typst.
 4. Convert the concept into `name`, `nickname`, `description`, `motto`, `particulars-items`, and `play-notes`.

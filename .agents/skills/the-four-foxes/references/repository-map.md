@@ -5,18 +5,19 @@ Use this reference when you need structure, layout assumptions, or repo-wide fac
 ## Project map
 
 - `_leaflet-template.typ` — shared trifold A4 landscape template
-- `*-fox.typ` — character-specific files that import the template and override palette and content
-- `gm-leaflet.typ` — GM-facing trifold about diceless play, scene framing, stakes, and improvisation
-- `plot-leaflet.typ` — plot/case trifold about nodes, connections, graph growth, and continuity between cases
+- `characters/*-fox.typ` — character-specific files that import the template and override palette and content
+- `game-master/gm-leaflet.typ` — GM-facing trifold about diceless play, scene framing, stakes, and improvisation
+- `game-master/plot-leaflet.typ` — plot/case trifold about nodes, connections, graph growth, and continuity between cases
+- `cases/*.typ` — case-specific trifolds and mystery material
 - `assets/` — generated portraits and other sheet-ready image assets
-- output PDFs are compiled per leaflet
+- output PDFs are compiled next to each leaflet source file
 - character sheets use a single `particulars-items` list under the heading **Personal Particulars**
 - the template accepts an optional `portrait` path for the cover image slot
 
 The project usually uses this pattern:
 
 ```typst
-#import "_leaflet-template.typ": leaflet
+#import "../_leaflet-template.typ": leaflet
 
 #show: leaflet.with(
   accent: rgb("49612f"),

@@ -7,10 +7,10 @@ Use this reference when editing Typst files, changing the shared template, compi
 ### Compile one leaflet
 
 ```bash
-typst compile ./larry-fox.typ ./larry-fox.pdf
+typst compile --root . ./characters/larry-fox.typ ./characters/larry-fox.pdf
 ```
 
-Replace `larry` as needed.
+Replace `larry` as needed, or compile files in `./game-master/` or `./cases/` the same way.
 
 ### Compile all non-template leaflets
 
@@ -21,7 +21,7 @@ Replace `larry` as needed.
 ### Render a preview image from a PDF on macOS
 
 ```bash
-./.agents/skills/the-four-foxes/scripts/preview-pdf.sh ./larry-fox.pdf
+./.agents/skills/the-four-foxes/scripts/preview-pdf.sh ./characters/larry-fox.pdf
 ```
 
 This prints the preview file path. Read that image to inspect the rendered layout.
@@ -30,7 +30,7 @@ This prints the preview file path. Read that image to inspect the rendered layou
 
 ```bash
 mkdir -p /tmp/four-foxes-pages
-magick -density 180 ./larry-fox.pdf /tmp/four-foxes-pages/larry-fox-%d.png
+magick -density 180 ./characters/larry-fox.pdf /tmp/four-foxes-pages/larry-fox-%d.png
 ```
 
 Use this when you need to inspect a specific page or panel closely, especially after changing inside-page content.
@@ -47,7 +47,7 @@ typst fonts | grep -i "Linux Libertine"
 2. If changing the template, also inspect at least one file that uses it.
 3. Make the smallest safe edit.
 4. Compile the affected file.
-5. If the template changed, compile all root-level leaflets.
+5. If the template changed, compile all character, game-master, and case leaflets.
 6. Render a PNG preview from the PDF and inspect the result visually.
 7. Look specifically for literal code showing up, overflow, bad contrast, and font warnings.
 
@@ -154,7 +154,7 @@ Avoid:
 
 When `_leaflet-template.typ` changes:
 
-- compile all root-level `.typ` files except ones whose basename starts with `_`
+- compile all `.typ` files in `characters/`, `game-master/`, and `cases/`
 - if you add or remove a named template argument, update every `#show: leaflet.with(...)` call site
 - verify each character file supplies suitable content for any new field, even if the template also provides a default
 - confirm the 2-page output still renders correctly
@@ -168,7 +168,7 @@ When `_leaflet-template.typ` changes:
 
 When editing a specific `*-fox.typ` file:
 
-- confirm the import still points to `_leaflet-template.typ`
+- confirm the import still points to `../_leaflet-template.typ`
 - confirm `#show: leaflet.with(...)` remains valid
 - keep the palette consistent and print-friendly
 - if using art, confirm the `portrait` asset path is correct and the image belongs in `assets/`

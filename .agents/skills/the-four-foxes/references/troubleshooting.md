@@ -48,7 +48,7 @@ Prefer these characteristics:
 On macOS, render a preview image:
 
 ```bash
-./.agents/skills/the-four-foxes/scripts/preview-pdf.sh ./larry-fox.pdf
+./.agents/skills/the-four-foxes/scripts/preview-pdf.sh ./characters/larry-fox.pdf
 ```
 
 Then read the generated PNG and inspect:
